@@ -1,18 +1,20 @@
 {
-  "name": "minin-in-web",
+  "name": "minin-web",
   "version": "1.0.0",
-  "description": "Minin.in Terminal UI - A web-based terminal interface for Minin.in URL minification service",
+  "description": "Webpage for Minin URL shortener",
   "main": "index.html",
   "scripts": {
     "build": "node generate-config.js",
-    "start": "npm run build && npx http-server -p 8080 -c-1"
+    "start": "npm run build && npx http-server --cors -p 8080 -c-1"
   },
   "keywords": [
     "terminal",
     "xterm",
-    "minin"
+    "minin",
+    "url",
+    "shortener"
   ],
-  "author": "",
+  "author": "Neppale",
   "license": "ISC",
   "dependencies": {
     "xterm": "^5.3.0",

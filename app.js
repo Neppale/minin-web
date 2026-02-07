@@ -1,7 +1,7 @@
 const CONFIG = {
     healthcheckEndpoint: window.ENV_CONFIG?.MININ_URL ? `${window.ENV_CONFIG?.MININ_URL}/version` : '',
     postEndpoint: window.ENV_CONFIG?.MININ_URL || '',
-    githubUrl: 'https://github.com'
+    githubUrl: 'https://github.com/neppale/minin'
 };
 
 const TERMINAL_THEME = {
@@ -346,7 +346,10 @@ function setupTerminalInput() {
                         headers: {
                             'Content-Type': 'application/json'
                         },
-                        body: JSON.stringify({ url: url })
+                        body: JSON.stringify({
+                            originalUrl: url,
+                            expirationDate: expirationDate
+                        })
                     })
                     .then(response => {
                         console.log('Request status:', response.status);
