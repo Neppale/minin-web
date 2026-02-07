@@ -1,0 +1,64 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #c0c0c0;
+    font-family: 'Courier New', monospace;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+}
+
+#terminal-container {
+    width: 100vw;
+    height: 100vh;
+    background-color: #c0c0c0;
+    padding: 80px 0 0 60px;
+    box-sizing: border-box;
+}
+
+#datepicker {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+}
+
+/* xterm.js custom styling */
+.xterm {
+    font-family: 'Courier New', monospace;
+    font-size: 14px;
+    height: 100%;
+    width: 100%;
+}
+
+.xterm-screen {
+    background-color: #c0c0c0 !important;
+}
+
+.xterm-viewport {
+    background-color: #c0c0c0 !important;
+}
+
+.xterm-cursor-layer {
+    z-index: 2;
+}
+
+.xterm-viewport::-webkit-scrollbar {
+    width: 10px;
+}
+
+.xterm-viewport::-webkit-scrollbar-track {
+    background: #c0c0c0;
+}
+
+.xterm-viewport::-webkit-scrollbar-thumb {
+    background: #808080;
+    border-radius: 5px;
+}
+
+.xterm-viewport::-webkit-scrollbar-thumb:hover {
+    background: #666666;
+}
