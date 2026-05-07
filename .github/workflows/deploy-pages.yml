@@ -1,0 +1,58 @@
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches:
+      - master
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: Development
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: npm
+
+      - run: npm ci
+
+      - name: Create .env from Development environment secrets
+        env:
+          MININ_URL: ${{ secrets.MININ_URL }}
+        run: |
+          if [ -z "$MININ_URL" ]; then
+            echo "::error::MININ_URL is not configured. Add it to Settings → Environments → Development → Environment secrets."
+            exit 1
+          fi
+          printf 'MININ_URL=%s\n' "$MININ_URL" > .env
+
+      - run: npm run build
+
+      - name: Stage static site for Pages
+        run: |
+          mkdir -p dist/node_modules
+          cp index.html styles.css app.js config.js dist/
+          cp -r node_modules/xterm node_modules/xterm-addon-fit dist/node_modules/
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: dist
+
+      - id: deployment
+        uses: actions/deploy-pages@v4
